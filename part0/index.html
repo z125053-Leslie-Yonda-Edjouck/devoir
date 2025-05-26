@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Quote </title>
+  <style>
+	body{background-color: white;}
+        #quoteBox{
+		background: orange;
+		margin-bottom: 3em 
+		
+	}
+	buttom{
+		padding: 0.5em 1em;
+		font-size: 1rem;
+		
+		
+	}
+  </style>
+  
+</head>
+
+<body>
+
+  <h1>Personal Quote</h1>
+  <h2> <em> Created by YONDA EDJOUCK LESLIE</em> </h2>
+
+  <div id="quoteBox">
+    <p id="quote">Click the button to get a quote!</p>
+    <p id="author"></p>
+  </div>
+
+  <button id="newQuoteBtn">New Quote</button>
+
+  <script>
+    const quoteText = document.getElementById("quote");
+    const authorText = document.getElementById("author");
+    const newQuoteBtn = document.getElementById("newQuoteBtn");
+
+    function getQuote() {
+     
+      quoteText.textContent = "Chargement..."; // Changing Messages 
+      authorText.textContent = "";
+      fetch("Quotes.json")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error during the change of Quotes.json");
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Choose a random quote.
+          const randomIndex = Math.floor(Math.random() * data.length);
+          const quote = data[randomIndex];
+          // Update the text of the quote
+          quoteText.textContent = quote.q;
+          authorText.textContent = `- ${quote.a}`;
+        })
+        .catch(error => {
+          console.error("Erreur :", error);
+          quoteText.textContent = "Impossible to change the quote.";
+          authorText.textContent = "";
+        });
+
+
+    }
+    newQuoteBtn.addEventListener("click", getQuote);
+    getQuote(); // Load a quote on page load
+  </script>
+
+</body>
+
+</html>
