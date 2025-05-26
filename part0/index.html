@@ -1,56 +1,71 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Citations Personnelles</title>
+  <title>Personal Quote </title>
   <style>
-    body {
-      background-color: white;
-    }
-    #quoteBox {
-      background: orange;
-      margin-bottom: 3em;
-    }
-    button {
-      padding: 0.5em 1em;
-      font-size: 1rem;
-    }
+	body{
+background-color: white;
+}
+        #quoteBox{
+		background: orange;
+		margin-bottom: 3em 
+		
+	}
+	button{
+		padding: 0.5em 1em;
+		font-size: 1rem;
+	}
   </style>
+  
 </head>
+
 <body>
-  <h1>Citations Personnelles</h1>
-  <h2><em>Créé par YONDA EDJOUCK LESLIE</em></h2>
+
+  <h1>Personal Quote</h1>
+  <h2> <em> Created by YONDA EDJOUCK LESLIE</em> </h2>
+
   <div id="quoteBox">
-    <p id="quote">Cliquez sur le bouton pour obtenir une citation !</p>
+    <p id="quote">Click the button to get a quote!</p>
   </div>
-  <button id="newQuoteBtn">Nouvelle Citation</button>
+
+  <button id="newQuoteBtn">New Quote</button>
 
   <script>
     const quoteText = document.getElementById("quote");
     const newQuoteBtn = document.getElementById("newQuoteBtn");
 
     function getQuote() {
-      quoteText.textContent = "Chargement...";
+     
+      quoteText.textContent = "Chargement..."; // Changing Messages 
+      
       fetch("Quotes.json")
         .then(response => {
           if (!response.ok) {
-            throw new Error("Erreur lors du chargement de Quotes.json");
+            throw new Error("Error during the change of Quotes.json");
           }
           return response.json();
         })
         .then(data => {
+          // Choose a random quote.
           const randomIndex = Math.floor(Math.random() * data.length);
           const quote = data[randomIndex];
+          // Update the text of the quote
           quoteText.textContent = quote.q;
         })
         .catch(error => {
           console.error("Erreur :", error);
-          quoteText.textContent = "Impossible de charger la citation.";
+          quoteText.textContent = "Impossible to change the quote.";
+         
         });
-    }
 
+
+    }
     newQuoteBtn.addEventListener("click", getQuote);
-    getQuote(); // Charger une citation au démarrage
+    getQuote(); // Load a quote on page load
   </script>
+
 </body>
+
 </html>
